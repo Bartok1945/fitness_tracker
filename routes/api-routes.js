@@ -2,8 +2,8 @@ const db = require("../models");
 
 module.exports = (app) => {
   // GET all workout data when hitting workouts page
-  app.get("/api/workout", (req, res) => {
-    db.workout.find()
+  app.get("/api/workouts", (req, res) => {
+    db.Workout.find()
       .then((workouts) => {
         res.json(workouts);
       })
@@ -13,7 +13,7 @@ module.exports = (app) => {
   });
 
   // POST route for when workout is 'completed'
-  app.post("/api/workout/", (req, res) => {
+  app.post("/api/workouts/", (req, res) => {
     db.Workout.create(req.body)
       .then((workouts) => {
         res.json(workouts);
@@ -24,7 +24,7 @@ module.exports = (app) => {
   });
 
   // PUT route to add/update workout for current workout
-  app.put("/api/workout/:id", (req, res) => {
+  app.put("/api/workouts/:id", (req, res) => {
     db.Workout.findByIdAndUpdate(
       { _id: req.params.id },
       { $push: { workout: req.body } }
@@ -38,7 +38,7 @@ module.exports = (app) => {
   });
 
   // GET all workout data 
-  app.get("/api/workout/range", (req, res) => {
+  app.get("/api/workouts/range", (req, res) => {
     let currentDate = new Date().toISOString();
     let previousWeek = new Date(
       Date.now() - 7 * 24 * 60 * 60 * 1000
